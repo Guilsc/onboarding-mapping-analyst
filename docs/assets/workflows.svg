@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="930" viewBox="0 0 1440 930">
+<defs><style>.title{font:700 28px Arial;fill:#16324F}.h{font:700 18px Arial;fill:#16324F}.s{font:15px Arial;fill:#16324F}.box{rx:14;ry:14;stroke:#16324F;stroke-width:2}.arrow{stroke:#5B7083;stroke-width:3;marker-end:url(#a)}</style><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#5B7083"/></marker></defs>
+<text x="720" y="42" text-anchor="middle" class="title">Task Intent Routing</text>
+
+<rect x="470" y="75" width="500" height="80" fill="#D9EAF7" class="box"/>
+<text x="720" y="110" text-anchor="middle" class="h">UNDERSTAND USER INTENT</text>
+<text x="720" y="138" text-anchor="middle" class="s">Then resolve workspace, complexity, Skills, and governance</text>
+
+<rect x="30" y="230" width="310" height="90" fill="#EAF2F8" class="box"/>
+<text x="185" y="264" text-anchor="middle" class="h">Analyze / Compare / Explain</text>
+<text x="185" y="292" text-anchor="middle" class="s">Read-only by default</text>
+
+<rect x="385" y="230" width="310" height="90" fill="#E2F0D9" class="box"/>
+<text x="540" y="264" text-anchor="middle" class="h">Generate from Intake</text>
+<text x="540" y="292" text-anchor="middle" class="s">Select current Master automatically</text>
+
+<rect x="740" y="230" width="310" height="90" fill="#FFF2CC" class="box"/>
+<text x="895" y="264" text-anchor="middle" class="h">Update Existing Mapping</text>
+<text x="895" y="292" text-anchor="middle" class="s">Structured change + Vn+1 Draft</text>
+
+<rect x="1095" y="230" width="310" height="90" fill="#F3E5F5" class="box"/>
+<text x="1250" y="264" text-anchor="middle" class="h">Discover / Build New</text>
+<text x="1250" y="292" text-anchor="middle" class="s">No suitable Approved Master</text>
+
+<line x1="720" y1="155" x2="185" y2="230" class="arrow"/>
+<line x1="720" y1="155" x2="540" y2="230" class="arrow"/>
+<line x1="720" y1="155" x2="895" y2="230" class="arrow"/>
+<line x1="720" y1="155" x2="1250" y2="230" class="arrow"/>
+
+<rect x="30" y="380" width="310" height="145" fill="#F6FAFD" class="box"/>
+<text x="185" y="415" text-anchor="middle" class="s">Find • compare • trace • explain</text>
+<text x="185" y="446" text-anchor="middle" class="s">Use smallest useful scope</text>
+<text x="185" y="477" text-anchor="middle" class="s">Fast or advanced reasoning</text>
+<text x="185" y="508" text-anchor="middle" class="h">No Master lifecycle</text>
+
+<rect x="385" y="380" width="310" height="145" fill="#F2F9EE" class="box"/>
+<text x="540" y="415" text-anchor="middle" class="s">Interpret intake</text>
+<text x="540" y="446" text-anchor="middle" class="s">Classify family + resolve Master</text>
+<text x="540" y="477" text-anchor="middle" class="s">Apply rules + Workfront + samples</text>
+<text x="540" y="508" text-anchor="middle" class="h">Request Output</text>
+
+<rect x="740" y="380" width="310" height="145" fill="#FFF9E8" class="box"/>
+<text x="895" y="415" text-anchor="middle" class="s">Notes / ticket / email / file</text>
+<text x="895" y="446" text-anchor="middle" class="s">→ Proposed Mapping Changes</text>
+<text x="895" y="477" text-anchor="middle" class="s">→ Impact Analysis + Validation</text>
+<text x="895" y="508" text-anchor="middle" class="h">Vn+1 Draft → Approval</text>
+
+<rect x="1095" y="380" width="310" height="145" fill="#FAF3FB" class="box"/>
+<text x="1250" y="415" text-anchor="middle" class="s">Source Discovery</text>
+<text x="1250" y="446" text-anchor="middle" class="s">Families + Salesforce / Workfront</text>
+<text x="1250" y="477" text-anchor="middle" class="s">Reconcile + Analysis Review</text>
+<text x="1250" y="508" text-anchor="middle" class="h">V1 Draft → Approval</text>
+
+<line x1="185" y1="320" x2="185" y2="380" class="arrow"/>
+<line x1="540" y1="320" x2="540" y2="380" class="arrow"/>
+<line x1="895" y1="320" x2="895" y2="380" class="arrow"/>
+<line x1="1250" y1="320" x2="1250" y2="380" class="arrow"/>
+
+<rect x="300" y="610" width="840" height="120" fill="#FCE4D6" class="box"/>
+<text x="720" y="647" text-anchor="middle" class="h">EXECUTION POLICY</text>
+<text x="720" y="677" text-anchor="middle" class="s">Simple deterministic → lightweight reasoning • Ambiguous/design/write impact → advanced reasoning</text>
+<text x="720" y="707" text-anchor="middle" class="s">Large evidence corpus → NotebookLM • Large corpus + hard design → NotebookLM + advanced synthesis</text>
+
+<rect x="330" y="790" width="780" height="80" fill="#F2F2F2" class="box"/>
+<text x="720" y="824" text-anchor="middle" class="h">Governance follows consequence</text>
+<text x="720" y="852" text-anchor="middle" class="s">Read questions stay light; canonical write actions preserve versions and require approval.</text>
+
+<line x1="720" y1="730" x2="720" y2="790" class="arrow"/>
+</svg>

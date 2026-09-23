@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="700" viewBox="0 0 800 700">
+<defs><style>.h{font:700 24px Arial;fill:#16324F}.t{font:700 20px Arial;fill:#fff}.s{font:16px Arial;fill:#16324F}.arrow{stroke:#5B7083;stroke-width:4;fill:none;marker-end:url(#a)}</style><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#5B7083"/></marker></defs>
+<text x="400" y="44" text-anchor="middle" class="h">Agent Loop: Observe → Reason → Act → Validate → Learn</text>
+<circle cx="400" cy="350" r="92" fill="#F2F6F9" stroke="#16324F" stroke-width="2"/><text x="400" y="335" text-anchor="middle" class="h">Human</text><text x="400" y="365" text-anchor="middle" class="s">Governance</text><text x="400" y="390" text-anchor="middle" class="s">around the loop</text>
+<circle cx="400" cy="120" r="72" fill="#2F75B5"/><text x="400" y="128" text-anchor="middle" class="t">OBSERVE</text>
+<circle cx="625" cy="265" r="72" fill="#5B9BD5"/><text x="625" y="273" text-anchor="middle" class="t">REASON</text>
+<circle cx="540" cy="525" r="72" fill="#70AD47"/><text x="540" y="533" text-anchor="middle" class="t">ACT</text>
+<circle cx="260" cy="525" r="72" fill="#ED7D31"/><text x="260" y="533" text-anchor="middle" class="t">VALIDATE</text>
+<circle cx="175" cy="265" r="72" fill="#A5A5A5"/><text x="175" y="273" text-anchor="middle" class="t">LEARN</text>
+<path d="M455 160 C525 170 570 200 595 225" class="arrow"/><path d="M610 335 C600 405 570 445 555 460" class="arrow"/><path d="M470 550 C390 590 330 575 300 555" class="arrow"/><path d="M220 470 C175 420 150 345 158 330" class="arrow"/><path d="M205 205 C245 155 320 125 328 125" class="arrow"/>
+</svg>

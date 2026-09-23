@@ -1,0 +1,49 @@
+.DS_Store
+Thumbs.db
+~$*.docx
+~$*.xlsx
+
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Public-repository boundary:
+# real source material, production evidence, governed mappings, request outputs,
+# and user-specific profiles belong in the external governed workspace.
+04_Source_Library/00_Incoming_New_Evidence/*
+!04_Source_Library/00_Incoming_New_Evidence/README.md
+04_Source_Library/01_Mixed_Unclassified/*
+!04_Source_Library/01_Mixed_Unclassified/README.md
+04_Source_Library/02_Salesforce_Onboarding_Mappings/*
+!04_Source_Library/02_Salesforce_Onboarding_Mappings/README.md
+04_Source_Library/03_Workfront_Mappings/*
+!04_Source_Library/03_Workfront_Mappings/README.md
+04_Source_Library/04_API_and_Payload_Mappings/*
+!04_Source_Library/04_API_and_Payload_Mappings/README.md
+04_Source_Library/05_Architecture_and_Reference/*
+!04_Source_Library/05_Architecture_and_Reference/README.md
+!04_Source_Library/05_Architecture_and_Reference/PUBLIC_*.md
+04_Source_Library/06_Legacy_or_Superseded/*
+!04_Source_Library/06_Legacy_or_Superseded/README.md
+
+05_Production_Evidence/**
+!05_Production_Evidence/**/
+!05_Production_Evidence/**/README.md
+
+06_Master_Mappings/Approved/*
+!06_Master_Mappings/Approved/README.md
+06_Master_Mappings/Drafts/*
+!06_Master_Mappings/Drafts/README.md
+
+09_Request_Outputs/*
+!09_Request_Outputs/README.md
+
+10_Personalization/Shared_Personalization_Library/02_Shared_Profiles/Users/*
+!10_Personalization/Shared_Personalization_Library/02_Shared_Profiles/Users/README.md

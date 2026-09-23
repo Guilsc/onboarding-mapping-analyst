@@ -1,0 +1,88 @@
+name: Build latest agent package
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'dist/**'
+      - 'docs/Onboarding_Mapping_Analyst_Confluence_Solution_Guide.docx'
+      - '03_Registries/Onboarding_Mapping_Agent_Knowledge_Registries.xlsx'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-latest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Public repository safety check
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          forbidden='eqx-onboarding|efx-onboarding|apis-eqx-gcp|Internal EFX|HIREtech|CDH EFX|UCIF|MCIF'
+
+          if git grep -nEi "$forbidden" --             '*.md' '*.txt' '*.yml' '*.yaml' '*.py' '*.csv'; then
+            echo "::error::Potential client-specific/internal identifier detected. Sanitize before packaging."
+            exit 1
+          fi
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip pandoc librsvg2-bin
+          python -m pip install --upgrade pip
+          python -m pip install openpyxl
+
+      - name: Generate knowledge registry workbook
+        run: python scripts/generate_registries.py
+
+      - name: Render diagrams for Word
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in docs/assets/*.svg; do
+            rsvg-convert "$f" -o "${f%.svg}.png"
+          done
+
+      - name: Build Confluence Word guide
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp docs/Confluence_Solution_Guide.md /tmp/Confluence_Solution_Guide.md
+          sed -i 's/\.svg/\.png/g' /tmp/Confluence_Solution_Guide.md
+          pandoc /tmp/Confluence_Solution_Guide.md             --from=gfm+raw_html             --resource-path=docs             -o docs/Onboarding_Mapping_Analyst_Confluence_Solution_Guide.docx
+
+      - name: Build latest package ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          rm -f dist/Onboarding_Mapping_Analyst_LATEST.zip dist/Onboarding_Mapping_Analyst_LATEST.sha256
+
+          zip -r dist/Onboarding_Mapping_Analyst_LATEST.zip             00_START_HERE.md             00_Workspace             MANIFEST.md             README.md             PUBLIC_REPOSITORY_DATA_POLICY.md             01_Agent_Core             02_Skills             03_Registries             04_Source_Library             05_Production_Evidence             06_Master_Mappings             07_Analysis_Reviews             08_Interface_Setup             09_Request_Outputs             10_Personalization             docs             scripts             .github             -x 'dist/*' '*.DS_Store'
+
+          sha256sum dist/Onboarding_Mapping_Analyst_LATEST.zip > dist/Onboarding_Mapping_Analyst_LATEST.sha256
+
+      - name: Commit generated artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          git add             03_Registries/Onboarding_Mapping_Agent_Knowledge_Registries.xlsx             docs/Onboarding_Mapping_Analyst_Confluence_Solution_Guide.docx             dist/Onboarding_Mapping_Analyst_LATEST.zip             dist/Onboarding_Mapping_Analyst_LATEST.sha256
+
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+            exit 0
+          fi
+
+          git commit -m 'chore: refresh generated agent package [skip ci]'
+          git push

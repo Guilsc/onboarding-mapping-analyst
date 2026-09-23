@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="860" viewBox="0 0 1300 860">
+<defs><style>.h{font:700 28px Arial;fill:#16324F}.t{font:700 19px Arial;fill:#16324F}.s{font:16px Arial;fill:#16324F}.box{rx:16;ry:16;stroke:#16324F;stroke-width:2}</style></defs>
+<text x="650" y="45" text-anchor="middle" class="h">Mapping Workspace Model</text>
+
+<rect x="380" y="75" width="540" height="85" fill="#D9EAF7" class="box"/>
+<text x="650" y="110" text-anchor="middle" class="t">ONBOARDING MAPPING ANALYST</text>
+<text x="650" y="140" text-anchor="middle" class="s">Same Agent Core + Skills across workspaces</text>
+
+<rect x="55" y="210" width="560" height="270" fill="#FFF2CC" class="box"/>
+<text x="335" y="248" text-anchor="middle" class="t">RECOMMENDED SHARED WORKSPACE</text>
+<text x="335" y="280" text-anchor="middle" class="s">Default governed mapping library</text>
+<rect x="90" y="320" width="220" height="115" fill="#FFF7DD" class="box"/>
+<text x="200" y="360" text-anchor="middle" class="t">Governed Knowledge</text>
+<text x="200" y="392" text-anchor="middle" class="s">Registries • Approved Masters</text>
+<text x="200" y="418" text-anchor="middle" class="s">Current Master Index</text>
+<rect x="355" y="320" width="220" height="115" fill="#FFF7DD" class="box"/>
+<text x="465" y="360" text-anchor="middle" class="t">Evidence &amp; Outputs</text>
+<text x="465" y="392" text-anchor="middle" class="s">Sources • Production Evidence</text>
+<text x="465" y="418" text-anchor="middle" class="s">Incoming • Request Outputs</text>
+
+<rect x="685" y="210" width="560" height="270" fill="#E2F0D9" class="box"/>
+<text x="965" y="248" text-anchor="middle" class="t">CUSTOM MAPPING WORKSPACE</text>
+<text x="965" y="280" text-anchor="middle" class="s">User-selected mapping source set</text>
+<rect x="720" y="320" width="220" height="115" fill="#EDF6E8" class="box"/>
+<text x="830" y="360" text-anchor="middle" class="t">Minimum Start</text>
+<text x="830" y="392" text-anchor="middle" class="s">Mapping files / folder</text>
+<text x="830" y="418" text-anchor="middle" class="s">No Master required</text>
+<rect x="985" y="320" width="220" height="115" fill="#EDF6E8" class="box"/>
+<text x="1095" y="360" text-anchor="middle" class="t">Optional Governance</text>
+<text x="1095" y="392" text-anchor="middle" class="s">Masters • Index • Registries</text>
+<text x="1095" y="418" text-anchor="middle" class="s">Outputs</text>
+
+<rect x="220" y="545" width="860" height="130" fill="#FCE4D6" class="box"/>
+<text x="650" y="582" text-anchor="middle" class="t">WORKSPACE ISOLATION</text>
+<text x="650" y="615" text-anchor="middle" class="s">Custom findings do not alter shared canonical knowledge automatically.</text>
+<text x="650" y="645" text-anchor="middle" class="s">Cross-workspace incorporation requires an explicit governed decision.</text>
+
+<rect x="300" y="735" width="700" height="65" fill="#F2F2F2" class="box"/>
+<text x="650" y="775" text-anchor="middle" class="s">User chooses the source world; the agent keeps the same specialized mapping behavior.</text>
+</svg>
