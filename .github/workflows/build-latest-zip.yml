@@ -12,56 +12,34 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: build-latest-agent-package-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-latest:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          check-latest: false
 
       - name: Public repository safety check
+        run: python scripts/public_safety_scan.py --repo
+
+      - name: Install build dependencies
         shell: bash
         run: |
           set -euo pipefail
-
-          python - <<'PY'
-          from pathlib import Path
-
-          forbidden = [
-              "eqx" + "-onboarding",
-              "efx" + "-onboarding",
-              "apis-" + "eqx-gcp",
-              "Internal " + "EFX",
-              "HIRE" + "tech",
-              "CDH " + "EFX",
-              "U" + "CIF",
-              "M" + "CIF",
-          ]
-          suffixes = {".md", ".txt", ".yml", ".yaml", ".py", ".csv"}
-          hits = []
-
-          for path in Path(".").rglob("*"):
-              if not path.is_file() or ".git" in path.parts or path.suffix.lower() not in suffixes:
-                  continue
-              text = path.read_text(encoding="utf-8", errors="ignore")
-              lower = text.lower()
-              for term in forbidden:
-                  if term.lower() in lower:
-                      hits.append(f"{path}: {term}")
-                      break
-
-          if hits:
-              print("\n".join(hits))
-              raise SystemExit("Potential client-specific/internal identifier detected. Sanitize before packaging.")
-          PY
-
-      - name: Install build dependencies
-        run: |
           sudo apt-get update
-          sudo apt-get install -y zip pandoc librsvg2-bin
-          python -m pip install --upgrade pip
-          python -m pip install openpyxl
+          sudo apt-get install -y --no-install-recommends zip unzip pandoc librsvg2-bin
+          python -m pip install --disable-pip-version-check openpyxl==3.1.5
 
       - name: Generate knowledge registry workbook
         run: python scripts/generate_registries.py
@@ -70,7 +48,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for f in docs/assets/*.svg; do
+          shopt -s nullglob
+          svgs=(docs/assets/*.svg)
+          if (( ${#svgs[@]} == 0 )); then
+            echo "::error::No SVG diagrams found under docs/assets."
+            exit 1
+          fi
+          for f in "${svgs[@]}"; do
             rsvg-convert "$f" -o "${f%.svg}.png"
           done
 
@@ -82,16 +66,33 @@ jobs:
           sed -i 's/\.svg/\.png/g' /tmp/Confluence_Solution_Guide.md
           pandoc /tmp/Confluence_Solution_Guide.md             --from=gfm+raw_html             --resource-path=docs             -o docs/Onboarding_Mapping_Analyst_Confluence_Solution_Guide.docx
 
-      - name: Build latest package ZIP
+      - name: Validate generated public artifacts
+        run: python scripts/public_safety_scan.py --repo
+
+      - name: Build latest deployment ZIP
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p dist
-          rm -f dist/Onboarding_Mapping_Analyst_LATEST.zip dist/Onboarding_Mapping_Analyst_LATEST.sha256
+          rm -f             dist/Onboarding_Mapping_Analyst_LATEST.zip             dist/Onboarding_Mapping_Analyst_LATEST.sha256
 
-          zip -r dist/Onboarding_Mapping_Analyst_LATEST.zip             00_START_HERE.md             00_Workspace             MANIFEST.md             README.md             PUBLIC_REPOSITORY_DATA_POLICY.md             01_Agent_Core             02_Skills             03_Registries             04_Source_Library             05_Production_Evidence             06_Master_Mappings             07_Analysis_Reviews             08_Interface_Setup             09_Request_Outputs             10_Personalization             docs             scripts             .github             -x 'dist/*' '*.DS_Store'
+          zip -r -q dist/Onboarding_Mapping_Analyst_LATEST.zip             00_START_HERE.md             00_Workspace             MANIFEST.md             README.md             PUBLIC_REPOSITORY_DATA_POLICY.md             01_Agent_Core             02_Skills             03_Registries             04_Source_Library             05_Production_Evidence             06_Master_Mappings             07_Analysis_Reviews             08_Interface_Setup             09_Request_Outputs             10_Personalization             docs             -x 'dist/*' '*.DS_Store'
 
-          sha256sum dist/Onboarding_Mapping_Analyst_LATEST.zip > dist/Onboarding_Mapping_Analyst_LATEST.sha256
+          (
+            cd dist
+            sha256sum Onboarding_Mapping_Analyst_LATEST.zip               > Onboarding_Mapping_Analyst_LATEST.sha256
+          )
+
+      - name: Validate deployment package
+        shell: bash
+        run: |
+          set -euo pipefail
+          (
+            cd dist
+            sha256sum -c Onboarding_Mapping_Analyst_LATEST.sha256
+          )
+          unzip -tq dist/Onboarding_Mapping_Analyst_LATEST.zip
+          python scripts/public_safety_scan.py             --package dist/Onboarding_Mapping_Analyst_LATEST.zip
 
       - name: Commit generated artifacts
         shell: bash
