@@ -50,7 +50,7 @@ For each source determine, where relevant:
 - source type;
 - historical context;
 - partner/reseller labels;
-- concepts such as UCIF / Direct / MCIF / ECP / product / requestClass;
+- concepts such as API-driven / CRM-driven / file-based / self-service / product / request class;
 - Salesforce objects;
 - Workfront content;
 - payload/API content;

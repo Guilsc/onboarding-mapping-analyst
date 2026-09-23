@@ -25,12 +25,36 @@ jobs:
         run: |
           set -euo pipefail
 
-          forbidden='eqx-onboarding|efx-onboarding|apis-eqx-gcp|Internal EFX|HIREtech|CDH EFX|UCIF|MCIF'
+          python - <<'PY'
+          from pathlib import Path
 
-          if git grep -nEi "$forbidden" --             '*.md' '*.txt' '*.yml' '*.yaml' '*.py' '*.csv'; then
-            echo "::error::Potential client-specific/internal identifier detected. Sanitize before packaging."
-            exit 1
-          fi
+          forbidden = [
+              "eqx" + "-onboarding",
+              "efx" + "-onboarding",
+              "apis-" + "eqx-gcp",
+              "Internal " + "EFX",
+              "HIRE" + "tech",
+              "CDH " + "EFX",
+              "U" + "CIF",
+              "M" + "CIF",
+          ]
+          suffixes = {".md", ".txt", ".yml", ".yaml", ".py", ".csv"}
+          hits = []
+
+          for path in Path(".").rglob("*"):
+              if not path.is_file() or ".git" in path.parts or path.suffix.lower() not in suffixes:
+                  continue
+              text = path.read_text(encoding="utf-8", errors="ignore")
+              lower = text.lower()
+              for term in forbidden:
+                  if term.lower() in lower:
+                      hits.append(f"{path}: {term}")
+                      break
+
+          if hits:
+              print("\n".join(hits))
+              raise SystemExit("Potential client-specific/internal identifier detected. Sanitize before packaging.")
+          PY
 
       - name: Install build dependencies
         run: |
