@@ -18,8 +18,12 @@ task_intents:
 
 Persist only validated learning that should influence future mapping reasoning.
 
+This Skill owns the OMA **Promote to Knowledge** action.
+
 ## Use this skill when
 
+- the user asks to **Promote to Knowledge**;
+- OMA identifies a validated discussion outcome that may be useful beyond the current conversation and asks whether it should be promoted;
 - a BA/authorized owner corrects the agent;
 - a clarification is resolved;
 - a taxonomy decision is approved/rejected;
@@ -47,17 +51,29 @@ Use whichever apply:
 
 ## Analysis guidance
 
-Determine:
-1. previous interpretation;
-2. corrected/approved interpretation;
-3. why the earlier interpretation was wrong/incomplete;
-4. evidence;
-5. affected families/objects/fields;
-6. registry updates required;
-7. Skill/Agent Core improvement required?;
-8. Master version impact?
+For Promote to Knowledge, use this sequence:
 
-Learning types:
+Discussion  
+→ Distill  
+→ Classify  
+→ Validate  
+→ Persist
+
+Determine:
+1. what durable conclusion actually emerged;
+2. whether it is validated enough to persist;
+3. why the conclusion matters;
+4. evidence and source references;
+5. affected families/objects/fields;
+6. the correct governed destination;
+7. whether a registry update is required;
+8. whether a Skill/Agent Core improvement is required;
+9. whether there is Master version impact.
+
+Do not treat exploratory reasoning, abandoned options, or unvalidated assumptions as durable knowledge.
+
+Knowledge types:
+- Mapping Decision;
 - Domain Rule;
 - Taxonomy Decision;
 - Exception;
@@ -69,6 +85,7 @@ Learning types:
 ## Expected output
 
 As needed:
+- Discussion Outcome / Knowledge Candidate;
 - Learning Candidate;
 - registry update recommendation;
 - linked Decision/Rule/Exception/Clarification updates;
@@ -78,6 +95,9 @@ As needed:
 ## Quality gates
 
 Before persisting:
+- persist the distilled outcome rather than the full raw chat by default;
+- preserve rationale and source/evidence traceability;
+- use an existing governed destination before creating a new artifact type;
 - only validated learning becomes shared canonical knowledge;
 - preserve evidence/decision traceability;
 - do not learn from frequency alone;
