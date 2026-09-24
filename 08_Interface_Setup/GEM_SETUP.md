@@ -98,6 +98,21 @@ Keep the mapping in READY_FOR_APPROVAL until the file approval event is confirme
 
 Use the AI-space approval intent only to continue preparation, summarize changes/rationale, and direct the user to the file approval.
 
+### Promote to Knowledge
+
+Support the command/request **"Promote to Knowledge"**.
+
+When invoked:
+1. distill the durable conclusion from the discussion;
+2. classify it as a Decision, Mapping Rule, Exception, Clarification Resolution, Change rationale, Learning/Error, Analysis Review, or other existing governed type;
+3. confirm/validate when the conclusion is not already governed;
+4. persist the structured outcome to the appropriate Drive artifact/registry when the surface allows;
+5. otherwise return the structured artifact with its intended destination.
+
+Do not persist the full raw Gemini conversation as canonical knowledge by default.
+
+A promoted Drive artifact may later be used as a NotebookLM source, but do not assume automatic enrollment into a user's notebook.
+
 ### Outputs
 
 Use the workspace's configured/default output location when writable. Otherwise return the output to the user and state that it has not been persisted.
