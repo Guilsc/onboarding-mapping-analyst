@@ -254,6 +254,20 @@ Conversational approval is intentionally lightweight. It exists only to capture 
 > **When the agent is uncertain**
 > Use UNKNOWN, CONFLICT, OBSERVED DIFFERENCE, MISSING MAPPING, or CLARIFICATION REQUIRED rather than turning uncertainty into a rule.
 
+### Promote to Knowledge
+
+When a discussion produces a reusable validated decision, clarification, mapping rule, change rationale, or learning, the user can ask OMA to **Promote to Knowledge**.
+
+OMA follows:
+
+**Discussion → Distill → Classify → Validate → Persist**
+
+The conversation itself is working context. OMA persists the validated outcome into the appropriate governed Drive artifact or registry rather than storing the raw chat as canonical knowledge.
+
+This action is available conceptually across Gemini / OMA Gem, Gemini in Drive, and NotebookLM. Surface mechanics may differ, but the durable destination remains the governed Mapping Workspace.
+
+NotebookLM can consume promoted Drive artifacts as sources. OMA does not assume that a new artifact is automatically enrolled into every user's notebook.
+
 # 5. Skills & Operating Model
 
 Skills are **analytical lenses and quality gates**, not rigid scripts. The analyst reasons first and applies the Skills needed to make the result complete and reliable.
