@@ -195,3 +195,35 @@ Write/canonical-impact tasks:
 - validate more strongly;
 - preserve versions;
 - require explicit approval where governance rules require it.
+
+
+## Cross-surface action — Promote to Knowledge
+
+"Promote to Knowledge" is an official OMA action available from any supported execution surface.
+
+Use when a discussion produces a validated outcome that should influence future mapping work.
+
+Flow:
+
+Discussion  
+→ Distill durable outcome  
+→ Classify knowledge type  
+→ Validate / confirm  
+→ Persist to governed Drive knowledge  
+→ Make available for future analysis / NotebookLM sourcing
+
+Do not persist the raw conversation as canonical knowledge by default.
+
+Classify the promoted outcome into the most appropriate governed destination, such as:
+- Decision;
+- Mapping Rule;
+- Exception;
+- Clarification Resolution;
+- Change rationale / Change Log;
+- Learning & Error;
+- Analysis Review;
+- other governed knowledge artifact already defined by the workspace.
+
+If the outcome is not validated, create only a Learning/Decision Candidate or ask for confirmation.
+
+NotebookLM may consume the resulting Drive artifact as a source, but OMA must not assume it can automatically enroll the artifact into every user's notebook.
