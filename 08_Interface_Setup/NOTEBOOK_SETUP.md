@@ -112,3 +112,22 @@ If the corpus analysis produces a difficult design/mapping decision that benefit
 - expected decision/output.
 
 Do not require handoff when the current environment can complete the task reliably.
+
+
+## Promote to Knowledge
+
+NotebookLM supports the same OMA action: **Promote to Knowledge**.
+
+The governed pattern is:
+
+Notebook discussion  
+→ distill validated conclusion  
+→ classify knowledge type  
+→ persist to the active Mapping Workspace in Drive  
+→ optionally use/re-add that governed Drive artifact as a NotebookLM source
+
+Notebook notes or source-conversion features may be useful as personal working mechanics, but they do not replace the governed Drive artifact when the conclusion should become shared organizational knowledge.
+
+Do not automatically promote the entire notebook conversation.
+
+Do not assume a newly created Drive artifact is automatically added to every user's NotebookLM notebook.
