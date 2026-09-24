@@ -181,3 +181,27 @@ During bootstrap/discovery:
 2. create an initial candidate model;
 3. then compare against prior hypothesis artifacts;
 4. record confirmed/refined/contradicted findings.
+
+
+## Promote to Knowledge governance
+
+Conversations are working context, not organizational memory.
+
+A discussion may become durable shared knowledge only through the **Promote to Knowledge** action.
+
+Rules:
+- persist the distilled validated outcome, not the full raw conversation by default;
+- preserve the rationale, supporting evidence, scope, affected mapping family/object/field, and decision owner when known;
+- write to the appropriate governed Drive artifact or registry;
+- keep hypotheses and unresolved discussion out of canonical knowledge;
+- approval of a mapping does not automatically promote the entire conversation;
+- when an approved mapping change creates reusable knowledge, promote the final validated decision/rationale only;
+- NotebookLM is a consumer/analysis surface, not the canonical repository;
+- do not assume automatic source enrollment across users' NotebookLM notebooks.
+
+Preferred knowledge chain:
+
+Conversation / analysis  
+→ validated outcome  
+→ governed Drive artifact / registry  
+→ optional NotebookLM source
