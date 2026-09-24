@@ -81,6 +81,22 @@ Do not require users to share notebooks with one another.
 
 A NotebookLM notebook should not be treated as a live mount of an entire Drive folder. New files in Drive are not assumed to become notebook sources automatically.
 
+## Promote to Knowledge across surfaces
+
+The same **Promote to Knowledge** action is supported conceptually across Gemini / OMA Gem, Gemini in Drive, and NotebookLM.
+
+The behavior is normalized even when the surface mechanics differ:
+
+Discussion  
+→ Distill  
+→ Classify  
+→ Validate  
+→ Persist to governed Drive knowledge
+
+The durable result belongs in the Mapping Workspace / governed Drive layer.
+
+NotebookLM may consume that artifact as a source, but a personal notebook is not the source of truth and OMA does not assume automatic source enrollment across notebooks.
+
 ## Default output destination
 
 For the Recommended Shared Workspace:
