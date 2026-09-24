@@ -62,3 +62,19 @@ For a large source corpus, Gemini Notebook / NotebookLM may be more appropriate.
 For a difficult design/canonical decision, advanced Gemini reasoning may be more appropriate when available.
 
 The user should not have to know this in advance.
+
+
+## Promote to Knowledge
+
+Users may say **"Promote to Knowledge"** after a discussion produces a reusable validated outcome.
+
+In Drive:
+1. distill the conclusion;
+2. classify the knowledge type;
+3. validate/confirm if required;
+4. write or update the appropriate governed Drive artifact/registry when supported;
+5. preserve rationale, evidence, and affected scope.
+
+Do not save the entire conversational transcript as canonical knowledge by default.
+
+Because Drive is already the durable shared layer, this surface is typically the most direct path from discussion to governed knowledge.
