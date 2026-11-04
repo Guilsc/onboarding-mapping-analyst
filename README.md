@@ -26,9 +26,9 @@ The specialist identity is a **Senior Data Systems Analyst specialized in onboar
 
 ## Architecture
 
-![Repository architecture](docs/assets/architecture.svg)
+![Evidence, draft mapping, human review, and canonical approval](docs/assets/architecture.svg)
 
-[Editable HTML/SVG source](docs/architecture.html) · [Diagram style](docs/assets/architecture.style.json)
+Review can return a mapping to draft. Only approved evidence becomes canonical knowledge. The SVG is the editable source.
 
 
 The decision order is **task intent → workspace → complexity/consequence → relevant skills → optional personalization → governance**. A custom workspace never silently changes shared canonical knowledge.
