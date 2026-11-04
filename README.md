@@ -1,122 +1,80 @@
 # Onboarding Mapping Analyst
 
-A governed AI-assisted solution for discovering, maintaining, validating, explaining, and generating onboarding data mappings across Salesforce and, when applicable, Adobe Workfront.
+**Evidence-led onboarding mappings, with a human approval boundary.**
 
-## Public repository boundary
+A governed instruction and template toolkit for analyzing, comparing, explaining, and maintaining Salesforce and Adobe Workfront onboarding mappings in a user's existing AI workspace. It is not a hosted integration or an autonomous production writer.
 
-This repository contains the reusable framework, Skills, governance, templates, and synthetic examples only.
+## Start here
 
-Real customer/client data, production evidence, operational mappings, private service names, credentials, internal links, request-specific outputs, and user-specific profiles are intentionally kept outside Git in the governed external workspace.
+1. Read [00_START_HERE.md](00_START_HERE.md) and the [bootstrap checklist](08_Interface_Setup/BOOTSTRAP_CHECKLIST.md).
+2. Select the setup for your existing Gemini, Gemini in Drive, or NotebookLM surface under `08_Interface_Setup/`.
+3. Configure [the shared mapping workspace pointer](00_Workspace/SHARED_MAPPING_WORKSPACE.md) in your private deployment copy.
+4. Supply authorized source material and a specific outcome. Keep customer data and operational outputs outside this repository.
 
-See [PUBLIC_REPOSITORY_DATA_POLICY.md](PUBLIC_REPOSITORY_DATA_POLICY.md).
+For a packaged copy, use `dist/Onboarding_Mapping_Analyst_LATEST.zip` with its adjacent SHA-256 file. This is a branch-generated deployment bundle, not an immutable versioned release. Pin a reviewed commit for reproducibility. Updates to the source must pass safety checks before repackaging.
 
-## Architecture at a Glance
+## What it helps with
 
-![Onboarding Mapping Analyst architecture](docs/assets/architecture.svg)
+| Intent | Result |
+| --- | --- |
+| Analyze, compare, or explain | Source-linked findings, gaps, and uncertainty |
+| Generate from intake | A reviewable draft grounded in supplied requirements |
+| Update a mapping | Explicit changes with version and approval boundaries |
+| Discover a new mapping | A structured mapping proposal, not invented canonical truth |
 
-Users work in their own Gemini, Gemini in Drive, or NotebookLM environment. Governed source files, shared personalization assets, and durable outputs live in the shared Google Drive structure.
+The specialist identity is a **Senior Data Systems Analyst specialized in onboarding data mappings**. Skills define analytical capability; the user's host controls tools, model access, and execution authority.
 
-## Core model
+## Architecture
 
-The solution has one specialist identity:
+![Repository architecture](docs/assets/architecture.svg)
 
-**Senior Data Systems Analyst specialized in onboarding data mappings**
+[Editable HTML/SVG source](docs/architecture.html) · [Diagram style](docs/assets/architecture.style.json)
 
-Users may start from:
-- Gemini / the Onboarding Mapping Analyst Gem
-- Gemini in Google Drive
-- NotebookLM
 
-The user should not need to know the best surface, model tier, or Skill before asking the question.
+The decision order is **task intent → workspace → complexity/consequence → relevant skills → optional personalization → governance**. A custom workspace never silently changes shared canonical knowledge.
 
-## Decision order
+The [architecture diagram](docs/assets/architecture.svg), [knowledge model](docs/assets/knowledge_model.svg), and [solution guide](docs/Confluence_Solution_Guide.md) provide more detail.
 
-The agent evaluates:
+## Project structure
 
-**Task Intent → Mapping Workspace → Complexity / Consequence → Relevant Skills → Doppelganger (optional) → Governance**
+| Path | Responsibility |
+| --- | --- |
+| `00_Workspace/` | Workspace selection, shared pointer, manifest/index templates |
+| `01_Agent_Core/` | Identity, routing, governance, output and execution policies |
+| `02_Skills/` | Modular mapping instructions |
+| `03_Registries/` | Governed knowledge templates and generated workbook |
+| `04_Source_Library/` | Source structure and synthetic examples |
+| `05_Production_Evidence/` | Placeholder structure only; real evidence remains external |
+| `06_Master_Mappings/` | Approved/draft lifecycle templates, not real operational mappings |
+| `07_Analysis_Reviews/` | Human review guidance |
+| `08_Interface_Setup/` | Existing-host setup and bootstrap |
+| `09_Request_Outputs/` | Placeholder structure; real outputs remain external |
+| `10_Personalization/` | Optional profile/lens resolution and templates |
+| `scripts/`, `tests/` | Generation, public-safety checks, and regression tests |
+| `dist/` | Intentional distributable package and checksum |
 
-Task Intents:
-- Analyze / Compare / Explain
-- Generate Mapping from Intake
-- Update Existing Mapping
-- Discover / Build New Mapping
+## Personalization without changing truth
 
-## Mapping Workspaces
+Optional personalization can use no profile, a private profile, or an explicitly selected shared profile. A resolver may apply at most one shared lens and one personal analysis profile. Samples are never auto-selected.
 
-### Recommended Shared Workspace
-The team's governed mapping library and current Approved Masters.
+Configure [the shared personalization pointer](10_Personalization/SHARED_PERSONALIZATION_LIBRARY.md) only in an authorized private workspace. Personalization changes emphasis and presentation, not mapping evidence, approval rules, or canonical truth.
 
-Configure the pointer in:
+## Verification
 
-`00_Workspace/SHARED_MAPPING_WORKSPACE.md`
+The scanner and regression suite are run from a **source checkout** and need Python 3.10+ and the standard library:
 
-### Custom Mapping Workspace
-A user may point the agent to another folder/set of mapping files. The same Skills are applied, but the workspace remains logically isolated from shared canonical knowledge.
+```bash
+python -m unittest discover -s tests -v
+python scripts/public_safety_scan.py --repo
+python scripts/public_safety_scan.py --package dist/Onboarding_Mapping_Analyst_LATEST.zip
+cd dist
+sha256sum -c Onboarding_Mapping_Analyst_LATEST.sha256
+```
 
-## Execution policy
+The [package workflow](.github/workflows/build-latest-zip.yml) regenerates the workbook and Word guide, renders diagrams, validates publication content, and refreshes the ZIP/checksum. Those generation steps additionally require the tools declared in the workflow. The scanner rejects unsafe archive paths and known private identifiers; it is not a complete secret detector, DLP system, or proof of analytical correctness.
 
-Work where the user already is.
+## Data and contribution policy
 
-Use lightweight reasoning for simple deterministic questions and stronger reasoning for ambiguity, design, cross-object analysis, or material write impact where model choice is available.
+Only reusable instructions, governance, templates, and synthetic examples belong here. Real customer data, private service names, production mappings, credentials, internal links, operational outputs, and personal profiles stay in the governed external workspace. See [PUBLIC_REPOSITORY_DATA_POLICY.md](PUBLIC_REPOSITORY_DATA_POLICY.md).
 
-Use NotebookLM when the main challenge is a large source corpus and evidence-grounded reconciliation.
-
-Escalate only when the current environment materially limits quality.
-
-## Doppelganger
-
-Doppelganger is optional:
-
-- **No Personalization**
-- **Private Profile**
-- **Import from Shared Personalization Path**
-
-A Doppelganger may use:
-- zero or one Shared Lens;
-- zero or one Personal Analysis Profile.
-
-Skills determine analytical capability.
-
-The task may determine the best-fit Shared Lens. The user's selected/bound profile determines personal preferences.
-
-Examples:
-- regression scenarios → QA Lens, when available;
-- operational/manual impact → Operations Lens;
-- source/transformation/integration analysis → Developer / Integration Lens.
-
-If no Lens/Profile applies, OMA works normally.
-
-Configure the shared personalization pointer in:
-
-`10_Personalization/SHARED_PERSONALIZATION_LIBRARY.md`
-
-The shared library contains:
-- `01_Shared_Lenses/`
-- `02_Shared_Profiles/Samples/`
-- `02_Shared_Profiles/Users/`
-
-Samples are examples only and are never auto-selected.
-
-Doppelganger affects emphasis, detail, comparison style, and presentation only. It never changes mapping truth or governance.
-
-## Structure
-
-- `00_Workspace/` — workspace selection, shared pointer, manifest/index templates
-- `01_Agent_Core/` — identity, architecture, routing, governance, output standards, execution and Doppelganger policy
-- `02_Skills/` — modular mapping skills
-- `03_Registries/` — governed knowledge templates
-- `04_Source_Library/` — source/evidence structure and synthetic public examples
-- `05_Production_Evidence/` — placeholder structure only; real evidence remains external
-- `06_Master_Mappings/` — Approved/Draft lifecycle structure; real mappings remain external
-- `07_Analysis_Reviews/` — human review layer
-- `08_Interface_Setup/` — Gemini, Drive, and Notebook guidance
-- `09_Request_Outputs/` — placeholder structure; real request outputs remain external
-- `10_Personalization/` — Doppelganger resolver, Personal Profile template, and Shared Personalization Library template
-
-## Governance
-
-Read-only analytical questions stay proportionate and lightweight.
-
-Canonical write actions preserve versions and require the existing approval rules.
-
-A custom workspace never silently changes the Recommended Shared Workspace.
+Keep changes proportionate, preserve approval/version rules, and use synthetic test cases. Do not remove useful tests or delete the intentional `dist/` deliverable as build junk. No hosted package or supported runtime release is implied, and the source is licensed under the [MIT License](LICENSE). GitHub computes the Languages panel automatically from source content.

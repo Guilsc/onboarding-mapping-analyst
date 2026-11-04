@@ -104,6 +104,11 @@ def scan_package(path: Path) -> list[str]:
                 hits.append(f"{path}: missing required package entry {item}")
 
             for name in sorted(names):
+                member_path = PurePosixPath(name)
+                if (member_path.is_absolute() or ".." in member_path.parts
+                        or "\\" in name or re.match(r"^[A-Za-z]:", name)):
+                    hits.append(f"{path}: unsafe package member path -> {name}")
+                    continue
                 if name.endswith("/"):
                     continue
                 if any(name.startswith(prefix) for prefix in FORBIDDEN_PACKAGE_PREFIXES):
