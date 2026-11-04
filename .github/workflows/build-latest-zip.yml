@@ -76,7 +76,7 @@ jobs:
           mkdir -p dist
           rm -f             dist/Onboarding_Mapping_Analyst_LATEST.zip             dist/Onboarding_Mapping_Analyst_LATEST.sha256
 
-          zip -r -q dist/Onboarding_Mapping_Analyst_LATEST.zip             00_START_HERE.md             00_Workspace             MANIFEST.md             README.md             PUBLIC_REPOSITORY_DATA_POLICY.md             01_Agent_Core             02_Skills             03_Registries             04_Source_Library             05_Production_Evidence             06_Master_Mappings             07_Analysis_Reviews             08_Interface_Setup             09_Request_Outputs             10_Personalization             docs             -x 'dist/*' '*.DS_Store'
+          zip -r -q dist/Onboarding_Mapping_Analyst_LATEST.zip             00_START_HERE.md             00_Workspace             MANIFEST.md             README.md             LICENSE             PUBLIC_REPOSITORY_DATA_POLICY.md             01_Agent_Core             02_Skills             03_Registries             04_Source_Library             05_Production_Evidence             06_Master_Mappings             07_Analysis_Reviews             08_Interface_Setup             09_Request_Outputs             10_Personalization             docs             -x 'dist/*' '*.DS_Store'
 
           (
             cd dist

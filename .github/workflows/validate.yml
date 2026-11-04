@@ -1,0 +1,28 @@
+name: Validate public toolkit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Test scanner boundaries
+        run: python -m unittest discover -s tests -v
+      - name: Validate repository and distributable
+        run: |
+          python scripts/public_safety_scan.py --repo
+          python scripts/public_safety_scan.py --package dist/Onboarding_Mapping_Analyst_LATEST.zip
+          cd dist
+          sha256sum -c Onboarding_Mapping_Analyst_LATEST.sha256
